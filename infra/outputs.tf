@@ -12,7 +12,7 @@ output "subnet_ids" {
 }
 
 output "sg_id" {
-  value = aws_security_group.sg.id
+  value = aws_security_group.ec2_rules_apache.id
 }
 
 output "public_ip" {
