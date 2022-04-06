@@ -11,8 +11,8 @@ module "aws_instance_ec2_apache" {
   ami                    = var.ami
   instance_type          = var.instance_type
   key_name               = aws_key_pair.my_key.key_name
-  vpc_security_group_ids = [aws_security_group.ec2_rules_apache.id]
-  subnet_id              = aws_subnet.pvt_subnet[count.index].id
+  vpc_security_group_ids = [aws_security_group.ec2_rules_nginx.id]
+  subnet_id              = aws_subnet.pub_subnet[count.index].id
   user_data              = file(var.server_apache[count.index])
 
   tags = merge(local.common_tags, { Name = "Instance Apache ${count.index + 1}" })
@@ -25,7 +25,7 @@ module "aws_instance_ec2_nginx" {
   instance_type          = var.instance_type
   key_name               = aws_key_pair.my_key.key_name
   vpc_security_group_ids = [aws_security_group.ec2_rules_nginx.id]
-  subnet_id              = aws_subnet.pub_subnet[0].id
+  subnet_id              = aws_subnet.pub_subnet[2].id
   user_data              = file("nginx.sh")
 
   tags = merge(local.common_tags, { Name = "Instance Nginx" })

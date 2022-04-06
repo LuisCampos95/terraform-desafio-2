@@ -10,23 +10,6 @@ resource "aws_internet_gateway" "igtw" {
   tags   = merge(local.common_tags, { Name = "Terraform IGW" })
 }
 
-# Criação das Subnets
-# resource "aws_subnet" "subnet" {
-#   for_each = {
-#     "pub_a" : ["192.168.1.0/24", "${var.aws_region}a", "Public A"]
-#     "pub_b" : ["192.168.2.0/24", "${var.aws_region}b", "Public B"]
-#     "pub_c" : ["192.168.3.0/24", "${var.aws_region}c", "Public C"]
-#     "pvt_a" : ["192.168.4.0/24", "${var.aws_region}a", "Private A"]
-#     "pvt_b" : ["192.168.5.0/24", "${var.aws_region}b", "Private B"]
-#     "pvt_c" : ["192.168.6.0/24", "${var.aws_region}c", "Private C"]
-#   }
-
-#   vpc_id            = aws_vpc.vpc.id
-#   cidr_block        = each.value[0]
-#   availability_zone = each.value[1]
-#   tags              = merge(local.common_tags, { Name = each.value[2] })
-# }
-
 resource "aws_subnet" "pub_subnet" {
   count                   = length(var.public_subnet_ip)
   vpc_id                  = aws_vpc.vpc.id
@@ -59,7 +42,7 @@ resource "aws_route_table" "public" {
 # Criação da Route Table Private
 resource "aws_route_table" "private" {
   vpc_id = aws_vpc.vpc.id
-  tags = merge(local.common_tags, { Name = "Route Table Private" })
+  tags   = merge(local.common_tags, { Name = "Route Table Private" })
 }
 
 # Criação da associação das Subnets na Route Table Publica
@@ -76,15 +59,20 @@ resource "aws_route_table_association" "pvt_association" {
   route_table_id = aws_route_table.private.id
 }
 
-resource "aws_nat_gateway" "this" {
-  allocation_id = aws_eip.example.id
-  subnet_id     = aws_subnet.pvt_subnet.id
+# resource "aws_eip" "this" {
+#   instance = module.aws_instance_ec2_apache.id
+#   vpc      = true
+# }
 
-  tags = {
-    Name = "gw NAT"
-  }
+# resource "aws_nat_gateway" "this" {
+#   allocation_id = aws_eip.this.id
+#   subnet_id     = aws_subnet.pvt_subnet.id
 
-  # To ensure proper ordering, it is recommended to add an explicit dependency
-  # on the Internet Gateway for the VPC.
-  depends_on = [aws_internet_gateway.igtw]
-}
+#   tags = {
+#     Name = "gw NAT"
+#   }
+
+#   # To ensure proper ordering, it is recommended to add an explicit dependency
+#   # on the Internet Gateway for the VPC.
+#   depends_on = [aws_internet_gateway.igtw]
+# }
