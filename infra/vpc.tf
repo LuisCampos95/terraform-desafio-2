@@ -59,20 +59,15 @@ resource "aws_route_table_association" "pvt_association" {
   route_table_id = aws_route_table.private.id
 }
 
-# resource "aws_eip" "this" {
-#   instance = module.aws_instance_ec2_apache.id
-#   vpc      = true
+# resource "aws_network_interface" "ip" {
+#   count       = length(var.private_subnet_ip)
+#   subnet_id   = aws_subnet.pvt_subnet[count.index].id
+#   private_ips = ["192.168.4.0", "192.168.5.0", "192.168.6.0"]
 # }
 
-# resource "aws_nat_gateway" "this" {
-#   allocation_id = aws_eip.this.id
-#   subnet_id     = aws_subnet.pvt_subnet.id
-
-#   tags = {
-#     Name = "gw NAT"
-#   }
-
-#   # To ensure proper ordering, it is recommended to add an explicit dependency
-#   # on the Internet Gateway for the VPC.
-#   depends_on = [aws_internet_gateway.igtw]
+# resource "aws_eip" "one" {
+#   count                     = length(var.private_subnet_ip)
+#   vpc                       = true
+#   network_interface         = aws_network_interface.ip.id
+#   associate_with_private_ip = aws_network_interface.ip[count.index].id
 # }
