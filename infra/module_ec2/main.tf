@@ -7,5 +7,6 @@ resource "aws_instance" "this" {
   subnet_id                   = var.subnet_id
   tags                        = var.tags
   associate_public_ip_address = var.associate_public_ip_address
+  private_ip                  = var.private_ip
   user_data                   = var.user_data
 }

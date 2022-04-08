@@ -42,7 +42,13 @@ resource "aws_route_table" "public" {
 # Criação da Route Table Private
 resource "aws_route_table" "private" {
   vpc_id = aws_vpc.vpc.id
-  tags   = merge(local.common_tags, { Name = "Route Table Private" })
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_nat_gateway.nat.id
+  }
+
+  tags = merge(local.common_tags, { Name = "Route Table Private" })
 }
 
 # Criação da associação das Subnets na Route Table Publica
@@ -59,15 +65,18 @@ resource "aws_route_table_association" "pvt_association" {
   route_table_id = aws_route_table.private.id
 }
 
-# resource "aws_network_interface" "ip" {
-#   count       = length(var.private_subnet_ip)
-#   subnet_id   = aws_subnet.pvt_subnet[count.index].id
-#   private_ips = ["192.168.4.0", "192.168.5.0", "192.168.6.0"]
-# }
+resource "aws_nat_gateway" "nat" {
+  allocation_id = aws_eip.this.id
+  subnet_id     = aws_subnet.pub_subnet[0].id
 
-# resource "aws_eip" "one" {
-#   count                     = length(var.private_subnet_ip)
-#   vpc                       = true
-#   network_interface         = aws_network_interface.ip.id
-#   associate_with_private_ip = aws_network_interface.ip[count.index].id
-# }
+  tags = {
+    Name = "gw NAT"
+  }
+
+  # To ensure proper ordering, it is recommended to add an explicit dependency
+  # on the Internet Gateway for the VPC.
+  depends_on = [aws_internet_gateway.igtw]
+}
+
+resource "aws_eip" "this" {
+}
