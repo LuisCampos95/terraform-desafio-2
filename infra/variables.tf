@@ -53,6 +53,8 @@ variable "ingress_ports_apache" {
   description = "Allowed Ec2 ports"
   type        = map(any)
   default = {
+    "22"   = ["0.0.0.0/0"]
+    "80"   = ["0.0.0.0/0"]
     "3001" = ["0.0.0.0/0"]
     "3002" = ["0.0.0.0/0"]
     "3003" = ["0.0.0.0/0"]
@@ -71,8 +73,8 @@ variable "ingress_ports_nginx" {
   description = "Allowed Ec2 ports"
   type        = map(any)
   default = {
-    "80" = ["0.0.0.0/0"]
-    "22" = ["0.0.0.0/0"]
+    "80"   = ["0.0.0.0/0"]
+    "22"   = ["0.0.0.0/0"]
   }
 }
 
@@ -82,4 +84,10 @@ variable "egress_ports_nginx" {
   default = {
     "0" = ["0.0.0.0/0"]
   }
+}
+
+variable "private_ip" {
+  type        = string
+  default     = "192.168"
+  description = "Range de IPs das subnets publicas"
 }
