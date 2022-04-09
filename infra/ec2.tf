@@ -31,13 +31,3 @@ module "aws_instance_ec2_nginx" {
 
   tags = merge(local.common_tags, { Name = "Instance Nginx" })
 }
-
-# resource "aws_network_interface" "network_interface" {
-#   count             = length(var.private_subnet_ip)
-#   subnet_id         = aws_subnet.pvt_subnet[count.index].id
-#   source_dest_check = false
-#   private_ips       = var.ips_private[count.index]
-#   security_groups   = [aws_security_group.ec2_rules_apache.id]
-
-#   tags = merge(local.common_tags, { Name = "Instance NAT Interface ${count.index + 1}" })
-# }

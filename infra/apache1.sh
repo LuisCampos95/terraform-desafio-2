@@ -2,16 +2,19 @@
 sudo su
 sudo yum update httpd
 sudo yum install httpd -y
-echo 'Servidor Apache 1' > /var/www/html/index.html
 sudo systemctl start httpd
-
-sudo yum install nmap -y
-
-sed -i 's/80/3001/g' /etc/httpd/conf/httpd.conf
-
+echo '<h1>Servidor Apache 1</h1>' > /var/www/html/index.html
 echo "ServerTokens Prod" >> /etc/httpd/conf/httpd.conf
 echo "ServerSignature Off" >> /etc/httpd/conf/httpd.conf
 
-sudo systemctl restart httpd
+sed -i 's/80/3001/g' /etc/httpd/conf/httpd.conf
 
-# nmap -sV 192.168.1.237
+echo "# Decrease TIME_WAIT seconds
+net.ipv4.tcp_fin_timeout = 30
+# Recycle and Reuse TIME_WAIT sockets faster
+net.ipv4.tcp_tw_recycle = 1
+net.ipv4.tcp_tw_reuse = 1" >> /etc/sysctl.conf
+
+systemctl restart httpd
+
+sudo yum install nmap -y

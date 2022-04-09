@@ -65,9 +65,13 @@ resource "aws_route_table_association" "pvt_association" {
   route_table_id = aws_route_table.private.id
 }
 
+resource "aws_eip" "this" {
+  vpc = true
+}
+
 resource "aws_nat_gateway" "nat" {
   allocation_id = aws_eip.this.id
-  subnet_id     = aws_subnet.pub_subnet[0].id
+  subnet_id     = aws_subnet.pub_subnet[1].id
 
   tags = {
     Name = "gw NAT"
@@ -76,7 +80,4 @@ resource "aws_nat_gateway" "nat" {
   # To ensure proper ordering, it is recommended to add an explicit dependency
   # on the Internet Gateway for the VPC.
   depends_on = [aws_internet_gateway.igtw]
-}
-
-resource "aws_eip" "this" {
 }
