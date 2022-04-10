@@ -2,7 +2,6 @@
     <a>☁️ Desafio 2 Terraform</a>
 </h1>
 
----
 ## Requisitos
 
 - [x] Criar uma VPC, não pode ser a default da conta;
@@ -20,15 +19,12 @@ Obs: As 3 instâncias devem ser deployadas uma em cada subnet privada com acesso
 - [x] Criar 1 Instância com nginx em uma subrede publica que será utilizada como LoadBalancer conforme abaixo: Esta instância deve ter acesso full a internet e acesso as portas de serviço das EC2 com apache via Security Group. Configurar o LoadBalancer no modo Random e acessivel via porta 8080, durante a apresentação o acesso deve ser feito no ip publico desta EC2 para validar o funcionamento do balancer;
 - [x] Criar 1 Bucket S3 sem acesso a internet para servir de repositório para o terraform.tfstate.
 
----
 ## Obrigatório
 
 - AS EC2 devem ser deployadas utilizando "count" através do módulo criado no ultimo desafio;
 - As subnets devem ser criadas utilizando "count" ou "for_each";
 - Necessario ter output dos ips privados das 3 EC2 com apache e do ip publico da EC2 com nginx;
 - Utilizar dynamic block para provisionamento de um item de sua escolha da infraestrutura.
-
----
 
 ## Infraestrutura
 
@@ -94,7 +90,7 @@ Acessando o serviço S3 na AWS é possível verificar a criação do bucket, con
 <p></p>
 
 <p align="center">
-  <img <img src="/imagens/s3.png">
+  <img <img src="/infra/imagens/s3.png">
 </p>
 
 #### Segunda Etapa: Criação do restante da infraestrura 
