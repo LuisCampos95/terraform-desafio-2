@@ -93,6 +93,7 @@ Acessando o serviço S3 na AWS é possível verificar a criação do bucket, con
   <img <img src="/infra/imagens/s3.png">
 </p>
 
+---
 #### Segunda Etapa: Criação do restante da infraestrura 
 
 Primeiramente foram desenvolvidos recursos essenciais de VPC, Internet Gateway, Subnets Públicas e Privadas, Route Tables e um Nat gateway no arquivo **infra/vpc.tf**:
