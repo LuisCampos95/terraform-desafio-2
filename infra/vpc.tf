@@ -10,6 +10,7 @@ resource "aws_internet_gateway" "igtw" {
   tags   = merge(local.common_tags, { Name = "Terraform IGW" })
 }
 
+# Criação das subnets públicas
 resource "aws_subnet" "pub_subnet" {
   count                   = length(var.public_subnet_ip)
   vpc_id                  = aws_vpc.vpc.id
@@ -19,6 +20,7 @@ resource "aws_subnet" "pub_subnet" {
   tags                    = merge(local.common_tags, { Name = "Public Subnet ${count.index + 1}" })
 }
 
+# Criação das subnets privadas
 resource "aws_subnet" "pvt_subnet" {
   count             = length(var.private_subnet_ip)
   vpc_id            = aws_vpc.vpc.id
@@ -69,6 +71,7 @@ resource "aws_eip" "this" {
   vpc = true
 }
 
+# Criação do Nat Gateway
 resource "aws_nat_gateway" "nat" {
   allocation_id = aws_eip.this.id
   subnet_id     = aws_subnet.pub_subnet[1].id
