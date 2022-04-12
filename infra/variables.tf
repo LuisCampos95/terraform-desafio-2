@@ -87,7 +87,7 @@ variable "egress_ports_nginx" {
 }
 
 variable "private_ip" {
-  type        = list
+  type        = list(any)
   default     = ["192.168.4.10", "192.168.5.11", "192.168.6.12"]
   description = "Range de IPs das subnets publicas"
 }

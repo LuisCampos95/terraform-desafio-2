@@ -16,7 +16,7 @@ net.ipv4.tcp_fin_timeout = 30
 net.ipv4.tcp_tw_recycle = 1
 net.ipv4.tcp_tw_reuse = 1" >> /etc/sysctl.conf
 
-sudo systemctl restart sshd
+sudo sysctl -p
 systemctl restart httpd
 
 sudo yum install nmap -y

@@ -16,6 +16,7 @@ module "aws_instance_ec2_apache" {
   subnet_id              = aws_subnet.pvt_subnet[count.index].id
   private_ip             = var.private_ip[count.index]
   user_data              = file(var.server_apache[count.index])
+  depends_on             = [aws_nat_gateway.nat]
 
   tags = merge(local.common_tags, { Name = "Instance Apache ${count.index + 1}" })
 }
