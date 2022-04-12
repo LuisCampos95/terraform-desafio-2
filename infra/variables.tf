@@ -24,7 +24,7 @@ variable "instance_type" {
 
 variable "server_apache" {
   type    = list(any)
-  default = ["apache1.sh", "apache2.sh", "apache3.sh"]
+  default = ["./scripts/apache1.sh", "./scripts/apache2.sh", "./scripts/apache3.sh"]
 }
 
 variable "server_nginx" {
@@ -54,7 +54,6 @@ variable "ingress_ports_apache" {
   type        = map(any)
   default = {
     "22"   = ["0.0.0.0/0"]
-    "80"   = ["0.0.0.0/0"]
     "3001" = ["0.0.0.0/0"]
     "3002" = ["0.0.0.0/0"]
     "3003" = ["0.0.0.0/0"]
@@ -74,6 +73,7 @@ variable "ingress_ports_nginx" {
   type        = map(any)
   default = {
     "80"   = ["0.0.0.0/0"]
+    "8080" = ["0.0.0.0/0"]
     "22"   = ["0.0.0.0/0"]
   }
 }
@@ -87,7 +87,7 @@ variable "egress_ports_nginx" {
 }
 
 variable "private_ip" {
-  type        = string
-  default     = "192.168"
+  type        = list
+  default     = ["192.168.4.10", "192.168.5.11", "192.168.6.12"]
   description = "Range de IPs das subnets publicas"
 }

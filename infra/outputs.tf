@@ -29,9 +29,16 @@ output "private_ip" {
   ]
 }
 
-output "ssh" {
-  value = module.aws_instance_ec2_nginx.ssh
+output "ssh_nginx" {
+  value = module.aws_instance_ec2_nginx.ssh_nginx
   depends_on = [
     module.aws_instance_ec2_nginx
+  ]
+}
+
+output "ssh_apache" {
+  value = module.aws_instance_ec2_apache[*].ssh_apache
+  depends_on = [
+    module.aws_instance_ec2_apache
   ]
 }

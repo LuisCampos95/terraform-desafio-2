@@ -16,7 +16,6 @@ provider "aws" {
 # Criação do Bucket S3
 resource "aws_s3_bucket" "kt-terraform" {
   bucket = "desafio-terraform-luis" #Nome do Bucket
-  force_destroy = true
 
   # Habilitando o versionamento
   versioning {

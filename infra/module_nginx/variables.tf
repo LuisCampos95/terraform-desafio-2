@@ -48,9 +48,3 @@ variable "user_data" {
   description = ""
   default     = ""
 }
-
-variable "private_ip" {
-  type        = string
-  default     = ""
-  description = "Range de IPs das subnets publicas"
-}
