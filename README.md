@@ -381,14 +381,13 @@ sudo yum install nmap -y
 Após ter executado o comando **terraform apply** no diretório **infra**, sua infraestrutra estará completa na AWS, para testar o funcionamento é necessário acessar a instância Nginx pelo seu IP Público disponibilizado pelo output ou diretamente no console da AWS. A cada refresh na página o nginx redirecionará o tráfego para uma instância Apache diferente de forma random, conforme imagens abaixo:
 
 <p align="center">
-  <img <img src="infra/imagens/apache1.png">
+  <img <img src="infra/imagens/httpd1.png">
 </p>
 
 <p align="center">
-  <img <img src="infra/imagens/apache2.png">
+  <img <img src="infra/imagens/httpd2.png">
 </p>
 
 <p align="center">
-  <img <img src="infra/imagens/apache3.png">
+  <img <img src="infra/imagens/httpd3.png">
 </p>
-
