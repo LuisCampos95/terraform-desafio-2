@@ -1,5 +1,6 @@
 #!/bin/bash
 sudo su
+sudo yum update
 sudo yum install httpd -y
 sudo systemctl start httpd
 
@@ -19,5 +20,4 @@ net.ipv4.tcp_tw_reuse = 1" >> /etc/sysctl.conf
 
 sudo sysctl -p
 systemctl restart httpd
-
 sudo yum install nmap -y
