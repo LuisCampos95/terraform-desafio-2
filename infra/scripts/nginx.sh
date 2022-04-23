@@ -22,4 +22,3 @@ http {
 }" > /etc/nginx/nginx.conf
 
 sudo systemctl restart nginx
-sudo yum install nmap -y
