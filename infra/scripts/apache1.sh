@@ -1,13 +1,13 @@
 #!/bin/bash
 sudo su
-sudo yum update httpd
 sudo yum install httpd -y
 sudo systemctl start httpd
 
-echo '<center><font size="10">Servidor Apache 1</font></center>' > /var/www/html/index.html
 echo "ServerTokens Prod" >> /etc/httpd/conf/httpd.conf
 echo "ServerSignature Off" >> /etc/httpd/conf/httpd.conf
 
+sed -i 's/Test Page for the Apache HTTP Server/Servidor Apache 1/g' /usr/share/httpd/noindex/index.html
+sed -i 's/Test Page/Servidor Apache 1/g' /usr/share/httpd/noindex/index.html
 sed -i 's/80/3001/g' /etc/httpd/conf/httpd.conf
 
 echo "# Decrease TIME_WAIT seconds
