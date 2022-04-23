@@ -4,12 +4,6 @@ sudo yum update
 sudo amazon-linux-extras install nginx1.12 -y
 sudo systemctl start nginx
 
-ssh-keygen -t rsa -f /home/oracle/.ssh/id_rsa -q -P ""
-echo "" > /home/ec2-user/.ssh/id_rsa
-
-chmod 400 /home/ec2-user/.ssh/id_rsa
-chown ec2-user:ec2-user /home/ec2-user/.ssh/id_rsa
-
 echo "events{}
 http {
    upstream backend {
@@ -28,5 +22,3 @@ http {
 }" > /etc/nginx/nginx.conf
 
 sudo systemctl restart nginx
-
-sudo yum install nmap -y
